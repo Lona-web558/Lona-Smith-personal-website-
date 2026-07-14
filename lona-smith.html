@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lona Smith — Founder & Entrepreneur</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dim: #8A6A28;
+    --dark: #0A0A08;
+    --dark-2: #111110;
+    --dark-3: #1A1A17;
+    --dark-4: #242420;
+    --cream: #F5F0E8;
+    --cream-dim: #BDB8AC;
+    --white: #FAFAF7;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid var(--gold-dim);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease, width 0.3s ease, height 0.3s ease;
+  }
+  body:hover .cursor { opacity: 1; }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9990;
+    opacity: 0.4;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 24px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(10,10,8,0.95) 0%, transparent 100%);
+    backdrop-filter: blur(2px);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+    text-decoration: none;
+    position: relative;
+  }
+  .nav-logo::after {
+    content: '™';
+    font-size: 0.5rem;
+    vertical-align: super;
+    margin-left: 2px;
+    color: var(--gold-dim);
+  }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--cream-dim);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 400;
+    transition: color 0.3s ease;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0; right: 0;
+    height: 1px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-datetime {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gold-dim);
+    letter-spacing: 0.05em;
+    text-align: right;
+    line-height: 1.6;
+  }
+
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 50%, rgba(201,168,76,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(201,168,76,0.04) 0%, transparent 60%);
+  }
+  .hero-line {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 48px;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--gold-dim) 30%, var(--gold-dim) 70%, transparent);
+    opacity: 0.3;
+  }
+  .hero-content {
+    position: relative;
+    max-width: 900px;
+    padding-left: 48px;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.3s forwards;
+    line-height: 1.9;
+  }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 900;
+    line-height: 0.95;
+    color: var(--white);
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.5s forwards;
+  }
+  .hero-name span {
+    color: var(--gold);
+    font-style: italic;
+  }
+  .hero-title {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--cream-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.7s forwards;
+  }
+  .hero-slogan {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    color: var(--cream-dim);
+    max-width: 680px;
+    line-height: 1.7;
+    border-left: 2px solid var(--gold);
+    padding-left: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.9s forwards;
+  }
+  .hero-slogan strong {
+    color: var(--gold-light);
+    font-style: normal;
+  }
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 48px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 1.2s forwards;
+  }
+  .hero-scroll span {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+  }
+  .scroll-line {
+    width: 40px; height: 1px;
+    background: var(--gold-dim);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  #about {
+    padding: 120px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+  }
+  #about::before {
+    content: 'ABOUT';
+    position: absolute;
+    top: 80px; left: 48px;
+    font-family: 'Playfair Display', serif;
+    font-size: 7rem;
+    font-weight: 900;
+    color: rgba(201,168,76,0.04);
+    letter-spacing: -0.02em;
+    pointer-events: none;
+    user-select: none;
+  }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 28px;
+  }
+  .section-title em { color: var(--gold); font-style: italic; }
+  .about-text p {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--cream-dim);
+    margin-bottom: 20px;
+  }
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--dark-4);
+  }
+  .stat-box {
+    background: var(--dark-3);
+    padding: 32px 28px;
+    transition: background 0.3s ease;
+  }
+  .stat-box:hover { background: var(--dark-4); }
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+  }
+
+  #ventures {
+    padding: 120px 48px;
+    background: var(--dark-2);
+    position: relative;
+  }
+  #ventures::before {
+    content: 'VENTURES';
+    position: absolute;
+    top: 60px; right: 48px;
+    font-family: 'Playfair Display', serif;
+    font-size: 7rem;
+    font-weight: 900;
+    color: rgba(201,168,76,0.03);
+    letter-spacing: -0.02em;
+    pointer-events: none;
+    user-select: none;
+  }
+  .ventures-header {
+    margin-bottom: 60px;
+  }
+  .ventures-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    background: var(--dark-4);
+  }
+  .venture-card {
+    background: var(--dark-2);
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s ease;
+    cursor: none;
+  }
+  .venture-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .venture-card:hover { background: var(--dark-3); }
+  .venture-card:hover::before { transform: scaleX(1); }
+  .venture-icon {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  .venture-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 12px;
+  }
+  .venture-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+  .venture-desc {
+    font-size: 0.88rem;
+    line-height: 1.8;
+    color: var(--cream-dim);
+  }
+  .venture-number {
+    position: absolute;
+    top: 24px; right: 32px;
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: rgba(201,168,76,0.06);
+    line-height: 1;
+  }
+
+  #philosophy {
+    padding: 140px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .philosophy-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,168,76,0.05) 0%, transparent 70%);
+  }
+  .philosophy-quote {
+    position: relative;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1.4rem, 3vw, 2.4rem);
+    font-weight: 400;
+    color: var(--white);
+    max-width: 800px;
+    margin: 0 auto 40px;
+    line-height: 1.5;
+  }
+  .philosophy-quote::before {
+    content: '\201C';
+    font-size: 8rem;
+    color: var(--gold);
+    opacity: 0.2;
+    position: absolute;
+    top: -40px; left: -20px;
+    line-height: 1;
+    font-style: normal;
+  }
+  .philosophy-quote strong { color: var(--gold-light); font-style: normal; }
+  .philosophy-attr {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+  }
+
+  #contact {
+    padding: 120px 48px;
+    background: var(--dark-2);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .contact-text .section-title { margin-bottom: 16px; }
+  .contact-text p {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--cream-dim);
+    margin-bottom: 40px;
+  }
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    color: var(--cream-dim);
+    font-size: 0.88rem;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--dark-4);
+    transition: color 0.3s ease, padding-left 0.3s ease;
+  }
+  .contact-link:hover { color: var(--gold); padding-left: 8px; }
+  .contact-link-icon {
+    width: 36px; height: 36px;
+    background: var(--dark-3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    transition: background 0.3s ease;
+  }
+  .contact-link:hover .contact-link-icon { background: var(--gold-dim); }
+  .brands-display {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .brand-row {
+    background: var(--dark-3);
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.3s ease, padding-left 0.3s ease;
+  }
+  .brand-row:hover { background: var(--dark-4); padding-left: 40px; }
+  .brand-row-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .brand-row-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+  }
+  .brand-row-arrow { color: var(--gold); font-size: 1.1rem; }
+
+  footer {
+    padding: 40px 48px;
+    border-top: 1px solid var(--dark-4);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    color: var(--gold-dim);
+  }
+  .footer-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--dark-4);
+  }
+  .footer-copy span { color: var(--gold-dim); }
+
+  .gold-divider {
+    width: 60px; height: 2px;
+    background: var(--gold);
+    margin-bottom: 32px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.15s; }
+  .reveal-delay-2 { transition-delay: 0.3s; }
+  .reveal-delay-3 { transition-delay: 0.45s; }
+  .reveal-delay-4 { transition-delay: 0.6s; }
+
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    #hero, #about, #ventures, #contact { padding-left: 24px; padding-right: 24px; }
+    .hero-content { padding-left: 24px; }
+    .hero-line { left: 24px; }
+    #about, #contact { grid-template-columns: 1fr; gap: 48px; }
+    .ventures-grid { grid-template-columns: 1fr; }
+    #about::before, #ventures::before { display: none; }
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+    .hero-scroll { left: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Lona Smith</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#ventures">Ventures</a></li>
+    <li><a href="#philosophy">Philosophy</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-datetime">
+    <div id="nav-date"></div>
+    <div id="nav-time"></div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Founder · Software Engineer · Content Creator<br>Author · Writer · Gold Investor · Billionaire · Property Owner · Maybach Owner</p>
+    <h1 class="hero-name">Lona<br><span>Smith</span></h1>
+    <p class="hero-title">Bryanston, Sandton — Johannesburg, South Africa</p>
+    <blockquote class="hero-slogan">
+      "Being young is the best time of my life, because I'm <strong>creating the identity of my dreams</strong> in my youth."
+    </blockquote>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll to explore</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-text reveal">
+    <p class="section-label">Who I Am</p>
+    <h2 class="section-title">Visionary.<br>Builder.<br><em>Founder.</em></h2>
+    <div class="gold-divider"></div>
+    <p>I am Lona Smith — Founder, software engineer, content creator, author, writer, gold investor, and property owner based in Bryanston, Sandton. I build ventures at the intersection of finance, media, fashion, and fitness.</p>
+    <p>From trading education platforms to luxury fashion e-commerce, I build products that create real value for real people — coding, writing, and shipping it all myself, with discipline and daily consistency.</p>
+    <p>My work is driven by the belief that extraordinary results come from ordinary effort, done every single day.</p>
+  </div>
+  <div class="about-stats reveal reveal-delay-2">
+    <div class="stat-box">
+      <div class="stat-number">4+</div>
+      <div class="stat-label">Active Ventures</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number">2</div>
+      <div class="stat-label">Crown Companies</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number">SDT</div>
+      <div class="stat-label">Bryanston, Sandton</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number">∞</div>
+      <div class="stat-label">Drive & Ambition</div>
+    </div>
+  </div>
+</section>
+
+<!-- VENTURES -->
+<section id="ventures">
+  <div class="ventures-header reveal">
+    <p class="section-label">What I've Built</p>
+    <h2 class="section-title">My <em>Ventures</em></h2>
+    <div class="gold-divider"></div>
+  </div>
+  <div class="ventures-grid">
+    <div class="venture-card reveal">
+      <div class="venture-number">01</div>
+      <div class="venture-icon">📈</div>
+      <div class="venture-tag">Trading Education · EdTech</div>
+      <h3 class="venture-name">Gold Fundamentals</h3>
+      <p class="venture-desc">A trading education and simulation platform centered on XAU/USD gold markets. Empowering traders with tools, knowledge, and simulated environments to master the fundamentals of gold trading.</p>
+    </div>
+    <div class="venture-card reveal reveal-delay-1">
+      <div class="venture-number">02</div>
+      <div class="venture-icon">📰</div>
+      <div class="venture-tag">Media · Business News</div>
+      <h3 class="venture-name">Business News Hub</h3>
+      <p class="venture-desc">A content platform covering business, entrepreneurship, and South African economic news. Delivering insights that inform, inspire, and empower entrepreneurs and business professionals.</p>
+    </div>
+    <div class="venture-card reveal reveal-delay-2">
+      <div class="venture-number">03</div>
+      <div class="venture-icon">👗</div>
+      <div class="venture-tag">Luxury Fashion · E-Commerce</div>
+      <h3 class="venture-name">LFashionwear</h3>
+      <p class="venture-desc">A luxury women's fashion e-commerce store curating premium styles for the modern African woman. Elegance, quality, and sophistication — delivered to your door.</p>
+    </div>
+    <div class="venture-card reveal reveal-delay-3">
+      <div class="venture-number">04</div>
+      <div class="venture-icon">🏋️</div>
+      <div class="venture-tag">Fitness · E-Commerce</div>
+      <h3 class="venture-name">Lona Smith Fitness</h3>
+      <p class="venture-desc">A fitness equipment store and content brand built around the philosophy of consistent, daily effort. Products and content designed to help ordinary people achieve extraordinary physical results.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section id="philosophy">
+  <div class="philosophy-bg"></div>
+  <p class="section-label reveal" style="text-align:center;">My Philosophy</p>
+  <blockquote class="philosophy-quote reveal reveal-delay-1">
+    "Being young is the best time of my life, because I'm <strong>creating the identity of my dreams</strong> in my youth."
+  </blockquote>
+  <p class="philosophy-attr reveal reveal-delay-2">— Lona Smith, Founder</p>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-text reveal">
+    <p class="section-label">Get In Touch</p>
+    <h2 class="section-title">Let's <em>Connect</em></h2>
+    <div class="gold-divider"></div>
+    <p>Whether it's a collaboration, business inquiry, or simply connecting with a fellow entrepreneur — I'm always open to conversations that create value.</p>
+    <div class="contact-links">
+      <a href="mailto:lonasmithhq@gmail.com" class="contact-link">
+        <div class="contact-link-icon">✉</div>
+        lonasmithhq@gmail.com
+      </a>
+      <a href="tel:+27763411780" class="contact-link">
+        <div class="contact-link-icon">☎</div>
+        +27 76 341 1780
+      </a>
+      <a href="https://www.tiktok.com/@lona_smith" target="_blank" class="contact-link">
+        <div class="contact-link-icon">📱</div>
+        @lona_smith
+      </a>
+    </div>
+  </div>
+  <div class="brands-display reveal reveal-delay-2">
+    <div class="brand-row">
+      <div>
+        <div class="brand-row-name">Gold Fundamentals</div>
+        <div class="brand-row-tag">Trading Education</div>
+      </div>
+      <div class="brand-row-arrow">→</div>
+    </div>
+    <div class="brand-row">
+      <div>
+        <div class="brand-row-name">Business News Hub</div>
+        <div class="brand-row-tag">Media & Content</div>
+      </div>
+      <div class="brand-row-arrow">→</div>
+    </div>
+    <div class="brand-row">
+      <div>
+        <div class="brand-row-name">LFashionwear</div>
+        <div class="brand-row-tag">Luxury Fashion</div>
+      </div>
+      <div class="brand-row-arrow">→</div>
+    </div>
+    <div class="brand-row">
+      <div>
+        <div class="brand-row-name">Lona Smith Fitness</div>
+        <div class="brand-row-tag">Fitness Equipment</div>
+      </div>
+      <div class="brand-row-arrow">→</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Lona Smith™</div>
+  <div class="footer-copy">© <span id="footer-year"></span> Lona Smith. All rights reserved. Bryanston, Sandton, South Africa.</div>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const cursorRing = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    setTimeout(() => {
+      cursorRing.style.left = e.clientX + 'px';
+      cursorRing.style.top = e.clientY + 'px';
+    }, 80);
+  });
+  document.querySelectorAll('a, button, .venture-card, .brand-row, .stat-box').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '18px';
+      cursor.style.height = '18px';
+      cursorRing.style.width = '50px';
+      cursorRing.style.height = '50px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '10px';
+      cursor.style.height = '10px';
+      cursorRing.style.width = '36px';
+      cursorRing.style.height = '36px';
+    });
+  });
+
+  function updateDateTime() {
+    const now = new Date();
+    const dateOpts = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+    const timeOpts = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'Africa/Johannesburg' };
+    document.getElementById('nav-date').textContent = now.toLocaleDateString('en-ZA', dateOpts);
+    document.getElementById('nav-time').textContent = now.toLocaleTimeString('en-ZA', timeOpts) + ' SAST';
+    document.getElementById('footer-year').textContent = now.getFullYear();
+  }
+  updateDateTime();
+  setInterval(updateDateTime, 1000);
+
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
